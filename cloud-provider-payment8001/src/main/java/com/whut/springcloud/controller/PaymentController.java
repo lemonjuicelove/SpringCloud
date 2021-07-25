@@ -76,4 +76,9 @@ public class PaymentController {
         return serverPort;
     }
 
+    @GetMapping("/payment/lb/{id}")
+    public String paymentLb(@PathVariable("id") Integer id){
+        return "paymentLb，ID：" + id + ",serverPort: " + serverPort;
+    }
+
 }
