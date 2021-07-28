@@ -3,20 +3,38 @@ server:
 
 spring:
   application:
-    name:  cloud-config-center #\u6CE8\u518C\u8FDBEureka\u670D\u52A1\u5668\u7684\u5FAE\u670D\u52A1\u540D
+    name:  cloud-config-center #注册进Eureka服务器的微服务名
   cloud:
     config:
       server:
         git:
-          uri: git@github.com:lemonjuicelove/springcloud-config.git #GitHub\u4E0A\u9762\u7684git\u4ED3\u5E93\u540D\u5B57
-          ####\u641C\u7D22\u76EE\u5F55
+          uri: git@github.com:lemonjuicelove/springcloud-config.git #GitHub上面的git仓库名字
+          ####搜索目录
           search-paths:
             - springcloud-config
-      ####\u8BFB\u53D6\u5206\u652F
+      ####读取分支
       label: master
+  # rabbitmq相关配置
+  rabbitmq:
+    host: 192.168.39.128
+    port: 5672
+    username: admin
+    password: 123
 
-#\u670D\u52A1\u6CE8\u518C\u5230eureka\u5730\u5740
+# 服务注册到eureka地址
 eureka:
   client:
     service-url:
       defaultZone: http://localhost:7001/eureka
+
+# 暴露bus刷新配置的端点
+management:
+  endpoints:
+    web:
+      exposure:
+        include: 'bus-refresh'
+
+
+
+
+

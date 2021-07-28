@@ -1,0 +1,4 @@
+# nacos中的注册配置
+spring:
+  profiles:
+    active: dev # 指定配置中心的dataID

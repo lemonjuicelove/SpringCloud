@@ -5,6 +5,7 @@ import com.whut.springcloud.service.PaymentFeignService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
@@ -17,7 +18,7 @@ public class OrderFeignController {
     private PaymentFeignService paymentFeignService;
 
     @GetMapping("/consumer/payment/get/{id}")
-    public CommonResult getPaymentById(@PathVariable("id") String id){
+    public CommonResult getPaymentById(@RequestParam("id") String id){
         return paymentFeignService.getPaymentById(id);
     }
 

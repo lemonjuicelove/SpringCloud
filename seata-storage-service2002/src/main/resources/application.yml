@@ -1,0 +1,52 @@
+server:
+  port: 2002
+
+spring:
+  application:
+    name: seata-storage-service
+  cloud:
+    nacos:
+      discovery:
+        server-addr: localhost:8848
+        group: SEATA_GROUP
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/seata_storage
+    username: root
+    password: 980218
+
+seata:
+  application-id: ${spring.application.name}
+  enabled: true
+  tx-service-group: my_test_tx_group # 前面记录的，需要填写一样
+  enable-auto-data-source-proxy: true
+  service:
+    vgroup-mapping:
+      my_test_tx_group: default
+    grouplist:
+      default: localhost:8091
+  config:
+    type: nacos
+    nacos:
+      namespace: ""
+      serverAddr: localhost:8848
+      group: SEATA_GROUP  # 分组不同可能会导致服务与客户端无法连接，所以推荐将所有的group设置为一样的
+      userName: "nacos"
+      password: "nacos"
+  registry:
+    type: nacos
+    nacos:
+      application: seata-server # 名称与服务端在nacos注册中心的名称一样
+      serverAddr: localhost:8848
+      group: SEATA_GROUP  # 分组不同可能会导致服务与客户端无法连接，所以推荐将所有的group设置为一样的
+      namespace: ""
+      userName: "nacos"
+      password: "nacos"
+      cluster: default
+
+feign:
+  hystrix:
+    enabled: false
+
+mybatis:
+  mapperLocations: classpath:mapper/*.xml

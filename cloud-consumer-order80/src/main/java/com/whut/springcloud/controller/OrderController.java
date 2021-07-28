@@ -45,4 +45,12 @@ public class OrderController {
         }
     }
 
+    @GetMapping("/consumer/payment/zipkin")
+    public String paymentZipkin(){
+        String result = restTemplate.getForObject(PAYMENT_URL+"/payment/zipkin/", String.class);
+        // 引入ribbon之后，url要使用eureka上面的服务名称
+        // String result = restTemplate.getForObject("http://10.141.114.128:8001"+"/payment/zipkin/", String.class);
+        return result;
+    }
+
 }
